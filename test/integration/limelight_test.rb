@@ -87,4 +87,16 @@ describe Limelight do
       assert channel['title'], 'Aperture Science Channel'
     end
   end
+
+  it "should update a media" do
+    with_a_cassette('update a media name') do
+      title = "Rick Astley - Never gonna give you up"
+      media = @limelight.upload(sample_mp4_file, title: title)
+      assert media['title'], title
+
+      title = "Dropkick Murphys - Barroom Hero"
+      media = @limelight.update_media(media['id'], {title: title})
+      assert media['title'], title
+    end
+  end
 end

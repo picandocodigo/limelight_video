@@ -28,6 +28,14 @@ class Limelight
     JSON.parse response.body
   end
 
+  def update_media(media_id, properties)
+    # http://api.videoplatform.limelight.com/rest/organizations/<org id>/media/<media id>/properties.{XML,JSON}
+    path = generate_encoded_path('put', "#{@base_media_url}/#{media_id}/properties")
+    response = @client.put(path, properties)
+
+    JSON.parse response.body
+  end
+
   def upload(filename_or_io, attributes = {})
     case filename_or_io
       when String
